@@ -17,7 +17,7 @@ import static com.bartish.twentyfortyeight.constants.Constants.*;
 
 public class GameBoard extends Group {
     private final int SIZE = 4;
-    private boolean bordFull = false;
+    private boolean bordFull;
 
     private Image board;
     private Block[][] matrix;
@@ -38,21 +38,27 @@ public class GameBoard extends Group {
     }
 
     public void restart() {
+        bordFull = false;
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if(matrix[i][j] != null) {
 
                     matrix[i][j].addAction(sequence(
-                            scaleTo(0, 0, BLOCK_MOVE_TIME),
+                            scaleTo(0, 0, BLOCK_MOVE_TIME / 2),
                             Actions.removeActor(matrix[i][j])
                     ));
                     matrix[i][j] = null;
                 }
             }
         }
-
-        addRandomBlock();
-        addRandomBlock();
+        addAction(sequence(
+                delay(BLOCK_MOVE_TIME),
+                run(() -> {
+                    addRandomBlock();
+                    addRandomBlock();
+                })
+        ));
     }
 
     @Override

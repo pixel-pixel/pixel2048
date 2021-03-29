@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.bartish.twentyfortyeight.constants.Constants.*;
 
 public class GameOver extends Image {
     public GameOver() {
@@ -13,14 +14,23 @@ public class GameOver extends Image {
 
         setOrigin(getWidth() / 2, getHeight() / 2);
 
-        addAction(alpha(0, 0));
-        addAction(scaleTo(2f, 2f));
+        addAction(parallel(
+                alpha(0, 0),
+                scaleTo(2f, 2f, 0)
+        ));
     }
 
     public void active() {
         addAction(parallel(
-                alpha(1, 2),
-                scaleTo(1, 1, 2)
+                alpha(1, GAME_OVER_TIME),
+                scaleTo(1, 1, GAME_OVER_TIME)
+        ));
+    }
+
+    public void disactive()  {
+        addAction(parallel(
+                alpha(0, GAME_OVER_TIME),
+                scaleTo(2f, 2f, GAME_OVER_TIME)
         ));
     }
 }
