@@ -9,7 +9,8 @@ import com.bartish.twentyfortyeight.shields.GameShield;
 import com.bartish.twentyfortyeight.shields.Shield;
 
 public class Main extends ApplicationAdapter {
-	Shield shield;
+	public static final String NAME = "2047";
+	private Shield shield;
 	
 	@Override
 	public void create () {
@@ -23,6 +24,12 @@ public class Main extends ApplicationAdapter {
 
 		shield.act();
 		shield.draw();
+	}
+
+	@Override
+	public void pause() {
+		super.pause();
+		shield.save();
 	}
 
 	@Override

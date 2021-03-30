@@ -3,7 +3,7 @@ package com.bartish.twentyfortyeight.shields;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import static com.bartish.twentyfortyeight.constants.Constants.*;
+import static com.bartish.twentyfortyeight.utils.Constants.*;
 
 public abstract class Shield extends Stage {
 
@@ -32,6 +32,14 @@ public abstract class Shield extends Stage {
         System.out.println(this.width);
 
         resize();
+    }
+
+    public boolean save() {
+        return true;
+    }
+
+    public boolean load() {
+        return true;
     }
 
     @Override

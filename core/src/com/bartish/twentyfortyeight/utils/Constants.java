@@ -1,4 +1,4 @@
-package com.bartish.twentyfortyeight.constants;
+package com.bartish.twentyfortyeight.utils;
 
 public final class Constants {
     public static final int GAME_WIDTH = 216;
@@ -13,4 +13,7 @@ public final class Constants {
     public static final float BLOCK_MOVE_TIME = 0.1f;
 
     public static final float GAME_OVER_TIME = 0.2f;
+
+    public static final String GAME_IS_SAVE_NAME = "is save?";
+    public static final String BOARD_SAVE_NAME = "board";
 }

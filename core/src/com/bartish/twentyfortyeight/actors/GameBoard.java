@@ -13,7 +13,7 @@ import com.bartish.twentyfortyeight.exceptions.MoveBlockException;
 import java.util.Random;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
-import static com.bartish.twentyfortyeight.constants.Constants.*;
+import static com.bartish.twentyfortyeight.utils.Constants.*;
 
 public class GameBoard extends Group {
     private final int SIZE = 4;
@@ -45,20 +45,13 @@ public class GameBoard extends Group {
                 if(matrix[i][j] != null) {
 
                     matrix[i][j].addAction(sequence(
-                            scaleTo(0, 0, BLOCK_MOVE_TIME / 2),
+                            scaleTo(0, 0, BLOCK_MOVE_TIME),
                             Actions.removeActor(matrix[i][j])
                     ));
                     matrix[i][j] = null;
                 }
             }
         }
-        addAction(sequence(
-                delay(BLOCK_MOVE_TIME),
-                run(() -> {
-                    addRandomBlock();
-                    addRandomBlock();
-                })
-        ));
     }
 
     @Override
@@ -217,15 +210,18 @@ public class GameBoard extends Group {
     }
 
     public void addRandomBlock() {
-        int emptyBlocks;
+        int emptyBlocks = 0;
         int num;
         int cell;
 
         try {
-            emptyBlocks = SIZE * SIZE;
-            emptyBlocks += 1 - getChildren().size;
-            num = new Random().nextInt(2);
 
+            for(Block[] arr: matrix) {
+                for(Block cll: arr) {
+                    if(cll == null) emptyBlocks++;
+                }
+            }
+            num = new Random().nextInt(2);
             cell = new Random().nextInt(emptyBlocks);
         } catch (Exception e) {
             throw new BoardIsFullException("Board is Full");
@@ -244,8 +240,6 @@ public class GameBoard extends Group {
                 cell--;
             }
         }
-        System.out.println(emptyBlocks + " ");
-
     }
 
     public void addBlock(int x, int y, int num) {
@@ -297,5 +291,39 @@ public class GameBoard extends Group {
 
     public boolean isBordFull() {
         return bordFull;
+    }
+
+    public int[][] getMatrix() {
+        int[][] arr = new int[SIZE][SIZE];
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(matrix[i][j] == null) arr[i][j] = -1;
+                else arr[i][j] = matrix[i][j].getNum();
+            }
+        }
+
+        return arr;
+    }
+
+    public void setMatrix(int[][] arr) {
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                removeActor(matrix[i][j]);
+
+                if(arr[i][j] == -1) matrix[i][j] = null;
+                else {
+                    matrix[i][j] = new Block(arr[i][j]);
+                    addActor(matrix[i][j]);
+                    act(0);
+
+                    matrix[i][j].setScale(0);
+                    matrix[i][j].addAction(
+                            scaleTo(1, 1, BLOCK_MOVE_TIME)
+                    );
+                }
+            }
+        }
     }
 }

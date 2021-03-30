@@ -1,20 +1,17 @@
 package com.bartish.twentyfortyeight.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.bartish.twentyfortyeight.constants.Tones;
+import com.bartish.twentyfortyeight.utils.Tones;
 
 public class Block extends Group {
     private int num;
     public boolean connected = false;
 
     private Image image;
-    private Label text;
+    //private Label text;
 
     public Block(int num) {
         super();

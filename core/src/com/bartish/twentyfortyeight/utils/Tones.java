@@ -1,4 +1,4 @@
-package com.bartish.twentyfortyeight.constants;
+package com.bartish.twentyfortyeight.utils;
 
 import com.badlogic.gdx.graphics.Color;
 

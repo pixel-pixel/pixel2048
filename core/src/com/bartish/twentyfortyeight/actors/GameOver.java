@@ -2,11 +2,10 @@ package com.bartish.twentyfortyeight.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
-import static com.bartish.twentyfortyeight.constants.Constants.*;
+import static com.bartish.twentyfortyeight.utils.Constants.*;
 
 public class GameOver extends Image {
     public GameOver() {
