@@ -61,6 +61,7 @@ public class GameShield extends Shield{
     public boolean save() {
         saver.putBoolean(GAME_IS_SAVE_NAME, true);
         saver.putString(BOARD_SAVE_NAME, json.toJson(gameBoard.getMatrix()));
+        saver.putInteger(SCORE_SAVE_NAME, gameBoard.getScore());
         saver.flush();
 
         return true;
@@ -71,9 +72,6 @@ public class GameShield extends Shield{
         if(saver.getBoolean(GAME_IS_SAVE_NAME, false)) {
             String jsonText = saver.getString(BOARD_SAVE_NAME);
             gameBoard.setMatrix(json.fromJson(int[][].class, jsonText));
-
-            System.out.println(json.fromJson(int[][].class, jsonText).toString());
-
             return true;
         }
         return false;

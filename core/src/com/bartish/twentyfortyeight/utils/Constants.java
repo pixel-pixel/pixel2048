@@ -16,4 +16,5 @@ public final class Constants {
 
     public static final String GAME_IS_SAVE_NAME = "is save?";
     public static final String BOARD_SAVE_NAME = "board";
+    public static final String SCORE_SAVE_NAME = "score";
 }

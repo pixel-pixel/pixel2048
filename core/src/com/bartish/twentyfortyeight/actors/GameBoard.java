@@ -18,6 +18,7 @@ import static com.bartish.twentyfortyeight.utils.Constants.*;
 public class GameBoard extends Group {
     private final int SIZE = 4;
     private boolean bordFull;
+    private int score;
 
     private Image board;
     private Block[][] matrix;
@@ -39,6 +40,7 @@ public class GameBoard extends Group {
 
     public void restart() {
         bordFull = false;
+        score = 0;
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -257,6 +259,8 @@ public class GameBoard extends Group {
         matrix[x][y].addAction(
                 scaleTo(1, 1, BLOCK_MOVE_TIME)
         );
+
+        score += Math.pow(2, ++num);
     }
 
     void move(int oldX, int oldY, int newX, int newY) {
@@ -289,10 +293,6 @@ public class GameBoard extends Group {
         ));
     }
 
-    public boolean isBordFull() {
-        return bordFull;
-    }
-
     public int[][] getMatrix() {
         int[][] arr = new int[SIZE][SIZE];
 
@@ -307,23 +307,21 @@ public class GameBoard extends Group {
     }
 
     public void setMatrix(int[][] arr) {
+        restart();
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                removeActor(matrix[i][j]);
-
-                if(arr[i][j] == -1) matrix[i][j] = null;
-                else {
-                    matrix[i][j] = new Block(arr[i][j]);
-                    addActor(matrix[i][j]);
-                    act(0);
-
-                    matrix[i][j].setScale(0);
-                    matrix[i][j].addAction(
-                            scaleTo(1, 1, BLOCK_MOVE_TIME)
-                    );
-                }
+                if(arr[i][j] != -1)
+                    addBlock(i, j, arr[i][j]);
             }
         }
+    }
+
+    public boolean isBordFull() {
+        return bordFull;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
