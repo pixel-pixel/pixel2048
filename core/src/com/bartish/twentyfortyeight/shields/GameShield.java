@@ -1,9 +1,13 @@
 package com.bartish.twentyfortyeight.shields;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
 import com.bartish.twentyfortyeight.Main;
@@ -12,6 +16,7 @@ import com.bartish.twentyfortyeight.actors.GameOver;
 import com.bartish.twentyfortyeight.actors.RestartButton;
 
 import static com.bartish.twentyfortyeight.utils.Constants.*;
+import static java.lang.Math.abs;
 
 public class GameShield extends Shield{
     //private final JsonSaver saver;
@@ -30,6 +35,15 @@ public class GameShield extends Shield{
         json = new Json();
 
         gameBoard = new GameBoard();
+        gameBoard.toFront();
+        gameBoard.addAction(Actions.sequence(
+                Actions.scaleTo(2, 2),
+                Actions.alpha(0),
+                Actions.parallel(
+                        Actions.scaleTo(1, 1, BOARD_START_TIME),
+                        Actions.alpha(1, BOARD_START_TIME)
+                )
+        ));
         addActor(gameBoard);
 
         gameOver = new GameOver();
@@ -53,6 +67,62 @@ public class GameShield extends Shield{
             gameBoard.addRandomBlock();
             gameBoard.addRandomBlock();
         }
+
+        addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (gameBoard.isAnimationEnded()) {
+                    switch (keycode) {
+                        case Input.Keys.UP:
+                            gameBoard.up();
+                            break;
+                        case Input.Keys.RIGHT:
+                            gameBoard.right();
+                            break;
+                        case Input.Keys.DOWN:
+                            gameBoard.down();
+                            break;
+                        case Input.Keys.LEFT:
+                            gameBoard.left();
+                            break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        addListener(new ActorGestureListener() {
+            boolean touch = false;
+
+            @Override
+            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
+                //super.pan(event, x, y, deltaX, deltaY);
+
+                if(gameBoard.isAnimationEnded() && !touch) {
+                    if (deltaX > 5 && abs(deltaX) > abs(deltaY * 2)) {
+                        gameBoard.right();
+                        touch = true;
+                    } else if (deltaX < -5 && abs(deltaX) > abs(deltaY * 2)) {
+                        gameBoard.left();
+                        touch = true;
+                    } else if (deltaY > 5 && abs(deltaY) > abs(deltaX * 2)) {
+                        gameBoard.up();
+                        touch = true;
+                    } else if (deltaY < -5 && abs(deltaY) > abs(deltaX * 2)) {
+                        gameBoard.down();
+                        touch = true;
+                    }
+                }
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+
+                touch = false;
+            }
+        });
+
         resize();
         //restart();
     }

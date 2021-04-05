@@ -10,9 +10,10 @@ public final class Constants {
 
     public static final int BLOCK_SIZE = 45;
     public static final int BLOCK_SPACING = 4;
-    public static final float BLOCK_MOVE_TIME = 0.1f;
 
+    public static final float BLOCK_MOVE_TIME = 0.1f;
     public static final float GAME_OVER_TIME = 0.2f;
+    public static final float BOARD_START_TIME = 0.5f;
 
     public static final String GAME_IS_SAVE_NAME = "is save?";
     public static final String BOARD_SAVE_NAME = "board";

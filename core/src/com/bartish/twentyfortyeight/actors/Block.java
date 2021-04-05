@@ -1,9 +1,12 @@
 package com.bartish.twentyfortyeight.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.bartish.twentyfortyeight.utils.Tones;
 
 public class Block extends Group {
@@ -11,7 +14,7 @@ public class Block extends Group {
     public boolean connected = false;
 
     private Image image;
-    //private Label text;
+//    private Label text;
 
     public Block(int num) {
         super();
@@ -22,10 +25,10 @@ public class Block extends Group {
         addActor(image);
 
 //        Label.LabelStyle style = new Label.LabelStyle();
-//        style.font = new BitmapFont(Gdx.files.internal("font.otf"));
+//        style.font = new BitmapFont(Gdx.files.internal("fonts/pixel.fnt"));
 //        style.fontColor = Color.WHITE;
-        //text = new Label("kek",);
-        //addActor(text);
+//        text = new Label("kek", style);
+//        addActor(text);
 
         setSize(image.getWidth(), image.getHeight());
         setOrigin(getWidth() / 2, getHeight() / 2);

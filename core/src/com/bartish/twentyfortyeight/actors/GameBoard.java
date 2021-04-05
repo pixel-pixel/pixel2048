@@ -29,6 +29,7 @@ public class GameBoard extends Group {
 
         setWidth(board.getWidth());
         setHeight(board.getHeight());
+        setOrigin(getWidth() / 2, getHeight() / 2);
 
         matrix = new Block[SIZE][];
         for (int i = 0; i < SIZE; i++) {
@@ -44,7 +45,7 @@ public class GameBoard extends Group {
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if(matrix[i][j] != null) {
+                if (matrix[i][j] != null) {
 
                     matrix[i][j].addAction(sequence(
                             scaleTo(0, 0, BLOCK_MOVE_TIME),
@@ -62,14 +63,6 @@ public class GameBoard extends Group {
 
         board.setBounds(0, 0, getWidth(), getHeight());
         unconnected();
-        if(!bordFull) {
-            try {
-                checkInput();
-            } catch (BoardIsFullException e) {
-                bordFull = true;
-                //gameover();
-            }
-        }
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -91,10 +84,10 @@ public class GameBoard extends Group {
         }
     }
 
-    private boolean isAnimationEnded() {
-        for(Block[] arr: matrix) {
-            for(Block cell: arr) {
-                if(cell != null && cell.hasActions())
+    public boolean isAnimationEnded() {
+        for (Block[] arr : matrix) {
+            for (Block cell : arr) {
+                if (cell != null && cell.hasActions())
                     return false;
             }
         }
@@ -102,19 +95,23 @@ public class GameBoard extends Group {
         return true;
     }
 
-    private void checkInput(){
-        if(isAnimationEnded()) {
-            if(isTouchable()) {
+    private void checkInput() {
 
-                if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) up();
-                else if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) down();
-                else if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) right();
-                else if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) left();
-            }
+        if (isTouchable()) {
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) up();
+            else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) down();
+            else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) right();
+            else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) left();
         }
+
     }
 
+    private boolean move;
+
     public void up() {
+        move = false;
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 1; j < SIZE; j++) {
                 if (matrix[i][j] != null) {
@@ -122,23 +119,32 @@ public class GameBoard extends Group {
                         if (matrix[i][k] != null) {
                             try {
                                 move(i, j, i, k);
+                                move = true;
                             } catch (MoveBlockException e) {
-                                move(i, j, i, k + 1);
+                                if (j != k + 1) {
+                                    move(i, j, i, k + 1);
+                                    move = true;
+                                }
                             }
 
                             break;
                         } else if (k == 0) {
                             move(i, j, i, k);
+
+                            move = true;
                             break;
                         }
                     }
                 }
             }
         }
-        addRandomBlock();
+
+        if (move) addRandomBlock();
     }
 
     public void down() {
+        move = false;
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = SIZE - 2; j >= 0; j--) {
                 if (matrix[i][j] != null) {
@@ -146,13 +152,19 @@ public class GameBoard extends Group {
                         if (matrix[i][k] != null) {
                             try {
                                 move(i, j, i, k);
+                                move = true;
                             } catch (MoveBlockException e) {
-                                move(i, j, i, k - 1);
+                                if (j != k - 1) {
+                                    move(i, j, i, k - 1);
+                                    move = true;
+                                }
                             }
 
                             break;
                         } else if (k == SIZE - 1) {
                             move(i, j, i, k);
+
+                            move = true;
                             break;
                         }
                     }
@@ -160,10 +172,12 @@ public class GameBoard extends Group {
             }
         }
 
-        addRandomBlock();
+        if (move) addRandomBlock();
     }
 
     public void left() {
+        move = false;
+
         for (int j = 0; j < SIZE; j++) {
             for (int i = 1; i < SIZE; i++) {
                 if (matrix[i][j] != null) {
@@ -171,23 +185,32 @@ public class GameBoard extends Group {
                         if (matrix[k][j] != null) {
                             try {
                                 move(i, j, k, j);
+                                move = true;
                             } catch (MoveBlockException e) {
-                                move(i, j, k + 1, j);
+                                if (i != k + 1) {
+                                    move(i, j, k + 1, j);
+                                    move = true;
+                                }
                             }
 
                             break;
                         } else if (k == 0) {
                             move(i, j, k, j);
+
+                            move = true;
                             break;
                         }
                     }
                 }
             }
         }
-        addRandomBlock();
+
+        if (move) addRandomBlock();
     }
 
     public void right() {
+        move = false;
+
         for (int j = 0; j < SIZE; j++) {
             for (int i = SIZE - 2; i >= 0; i--) {
                 if (matrix[i][j] != null) {
@@ -195,20 +218,27 @@ public class GameBoard extends Group {
                         if (matrix[k][j] != null) {
                             try {
                                 move(i, j, k, j);
+                                move = true;
                             } catch (MoveBlockException e) {
-                                move(i, j, k - 1, j);
+                                if (i != k - 1) {
+                                    move(i, j, k - 1, j);
+                                    move = true;
+                                }
                             }
 
                             break;
                         } else if (k == SIZE - 1) {
                             move(i, j, k, j);
+
+                            move = true;
                             break;
                         }
                     }
                 }
             }
         }
-        addRandomBlock();
+
+        if (move) addRandomBlock();
     }
 
     public void addRandomBlock() {
@@ -218,9 +248,9 @@ public class GameBoard extends Group {
 
         try {
 
-            for(Block[] arr: matrix) {
-                for(Block cll: arr) {
-                    if(cll == null) emptyBlocks++;
+            for (Block[] arr : matrix) {
+                for (Block cll : arr) {
+                    if (cll == null) emptyBlocks++;
                 }
             }
             num = new Random().nextInt(2);
@@ -245,7 +275,7 @@ public class GameBoard extends Group {
     }
 
     public void addBlock(int x, int y, int num) {
-        if(matrix[x][y] != null)
+        if (matrix[x][y] != null)
             throw new AddBlockException("There are Block already");
 
         matrix[x][y] = new Block(num);
@@ -254,7 +284,8 @@ public class GameBoard extends Group {
                 (x + 1) * BLOCK_SPACING + x * BLOCK_SIZE,
                 getHeight() - (y + 1) * (BLOCK_SPACING + BLOCK_SIZE));
 
-        matrix[x][y].toBack();  board.toBack();
+        matrix[x][y].toBack();
+        board.toBack();
         matrix[x][y].setScale(0);
         matrix[x][y].addAction(
                 scaleTo(1, 1, BLOCK_MOVE_TIME)
@@ -263,8 +294,9 @@ public class GameBoard extends Group {
         score += Math.pow(2, ++num);
     }
 
-    void move(int oldX, int oldY, int newX, int newY) {
-        if (oldX == newX && oldY == newY) return;
+    public boolean canMove(int oldX, int oldY, int newX, int newY) throws MoveBlockException {
+        if (oldX == newX && oldY == newY)
+            throw new MoveBlockException("Cant move to old position");
 
         if (matrix[newX][newY] != null) {
 
@@ -273,7 +305,15 @@ public class GameBoard extends Group {
                 throw new MoveBlockException("NewNum must be equal to oldNum");
             if (matrix[newX][newY].connected)
                 throw new MoveBlockException("Cant connect with connected block");
+        }
 
+        return true;
+    }
+
+    public void move(int oldX, int oldY, int newX, int newY) {
+        canMove(oldX, oldY, newX, newY);
+
+        if (matrix[newX][newY] != null) {
             matrix[oldX][oldY].connected = true;
             matrix[oldX][oldY].doubleTheNumber();
             matrix[newX][newY].addAction(sequence(
@@ -298,7 +338,7 @@ public class GameBoard extends Group {
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if(matrix[i][j] == null) arr[i][j] = -1;
+                if (matrix[i][j] == null) arr[i][j] = -1;
                 else arr[i][j] = matrix[i][j].getNum();
             }
         }
@@ -311,7 +351,7 @@ public class GameBoard extends Group {
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if(arr[i][j] != -1)
+                if (arr[i][j] != -1)
                     addBlock(i, j, arr[i][j]);
             }
         }
