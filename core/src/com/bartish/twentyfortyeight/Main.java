@@ -17,6 +17,8 @@ public class Main extends ApplicationAdapter {
 		shield = new GameShield();
 	}
 
+
+
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(250/255f, 248/255f, 240/255f, 1);

@@ -129,12 +129,15 @@ public class GameShield extends Shield{
 
     @Override
     public boolean save() {
-        saver.putBoolean(GAME_IS_SAVE_NAME, true);
-        saver.putString(BOARD_SAVE_NAME, json.toJson(gameBoard.getMatrix()));
-        saver.putInteger(SCORE_SAVE_NAME, gameBoard.getScore());
-        saver.flush();
+        if(!gameBoard.isGameOver()) {
+            saver.putBoolean(GAME_IS_SAVE_NAME, true);
+            saver.putString(BOARD_SAVE_NAME, json.toJson(gameBoard.getMatrix()));
+            saver.putInteger(SCORE_SAVE_NAME, gameBoard.getScore());
+            saver.flush();
 
-        return true;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -151,7 +154,7 @@ public class GameShield extends Shield{
     public void act() {
         super.act();
 
-        if(gameBoard.isBordFull()) {
+        if(gameBoard.isGameOver()) {
             gameBoard.setTouchable(Touchable.disabled);
             gameOver.active();
         }
