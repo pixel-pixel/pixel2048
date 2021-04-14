@@ -26,12 +26,6 @@ public class Block extends Group {
         image.setColor(Tones.get(num));
         addActor(image);
 
-//        Label.LabelStyle style = new Label.LabelStyle();
-//        style.font = new BitmapFont(Gdx.files.internal("fonts/pixel.fnt"));
-//        style.fontColor = Color.WHITE;
-//        text = new Label("kek", style);
-//        addActor(text);
-
         setSize(Constants.BLOCK_SIZE, Constants.BLOCK_SIZE);
         setOrigin(getWidth() / 2, getHeight() / 2);
     }
@@ -39,7 +33,6 @@ public class Block extends Group {
     @Override
     public void act(float delta) {
         super.act(delta);
-        //text.setText(Math.pow(2, (num + 1)) + "");
     }
 
     public int getNum() {

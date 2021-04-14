@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.bartish.twentyfortyeight.actors.Block;
 
 /**
- * A Class-utility for working with colors of Blocks
+ * A Class-utility for working with colors of {@link Block}
  *
  * @author Andrew Bartish (pixel-pixel)
  * @version 1.0

@@ -130,6 +130,10 @@ public class GameShield extends Shield{
 
     }
 
+    public void restart() {
+
+    }
+
     @Override
     public boolean save() {
         if(!gameBoard.isGameOver()) {
