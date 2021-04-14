@@ -9,7 +9,7 @@ import com.bartish.twentyfortyeight.actors.Block;
  * @author Andrew Bartish (pixel-pixel)
  * @version 1.0
  * @see Block#Block(int)
- * @see Block#doubleTheNumber()
+ * @see Block#addOneToNum()
  */
 public class Tones {
     /**

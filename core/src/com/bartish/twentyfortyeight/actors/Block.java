@@ -10,13 +10,27 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.bartish.twentyfortyeight.utils.Constants;
 import com.bartish.twentyfortyeight.utils.Tones;
 
+/**
+ * A class of game blocks with numbers. Must works with {@link GameBoard}
+ *
+ * @author Andrew Bartish (pixel-pixel)
+ * @version 1.0
+ * @see GameBoard
+ */
 public class Block extends Group {
+    /**A number by which can know image for Block and Color via {@link Tones} <b>(not 2, 4, 8, 16... but 0, 1, 2, 3...)</b>*/
     private int num;
+
+    /**An ancillary property to correct some problem. <b>Don`t use</b>*/
     public boolean connected = false;
 
+    /**An image of Block`s background*/
     private Image image;
-//    private Label text;
 
+    /**
+     * A constructor which configure the Block
+     * @param num Number of Block <b>(not 2, 4, 8, 16... but 0, 1, 2, 3...)</b>
+     */
     public Block(int num) {
         super();
         this.num = num;
@@ -30,20 +44,18 @@ public class Block extends Group {
         setOrigin(getWidth() / 2, getHeight() / 2);
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
-
+    /**
+     * A getter of {@link Block#num}
+     * @return Number of Block <b>(not 2, 4, 8, 16... but 0, 1, 2, 3...)</b>
+     */
     public int getNum() {
         return num;
     }
 
-    public void setNum(int num) {
-        this.num = num;
-    }
-
-    public void doubleTheNumber() {
+    /**
+     * Add +1 to {@link Block#num} and change it Color to new by {@link Tones}
+     */
+    public void addOneToNum() {
         num++;
         image.setColor(Tones.get(num));
     }

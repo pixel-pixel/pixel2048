@@ -1,7 +1,6 @@
 package com.bartish.twentyfortyeight.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -301,7 +300,7 @@ public class GameBoard extends Group {
 
         if (matrix[newX][newY] != null) {
             matrix[oldX][oldY].connected = true;
-            matrix[oldX][oldY].doubleTheNumber();
+            matrix[oldX][oldY].addOneToNum();
             matrix[newX][newY].addAction(sequence(
                     Actions.scaleTo(0.8f, 0.8f, BLOCK_MOVE_TIME),
                     Actions.removeActor(matrix[newX][newY])
@@ -360,20 +359,18 @@ public class GameBoard extends Group {
             }
         }
 
-        if (matrix[0][0].getNum() == matrix[1][0].getNum() ||
-                matrix[1][0].getNum() == matrix[2][0].getNum() ||
-                matrix[2][0].getNum() == matrix[3][0].getNum() ||
-                matrix[3][0].getNum() == matrix[3][1].getNum() ||
-                matrix[3][1].getNum() == matrix[3][2].getNum() ||
-                matrix[3][2].getNum() == matrix[3][3].getNum() ||
-                matrix[3][3].getNum() == matrix[2][3].getNum() ||
-                matrix[2][3].getNum() == matrix[1][3].getNum() ||
-                matrix[1][3].getNum() == matrix[0][3].getNum() ||
-                matrix[0][3].getNum() == matrix[0][2].getNum() ||
-                matrix[0][2].getNum() == matrix[0][1].getNum() ||
-                matrix[0][1].getNum() == matrix[0][0].getNum()
-        ) return false;
-        return true;
+        return matrix[0][0].getNum() != matrix[1][0].getNum() &&
+                matrix[1][0].getNum() != matrix[2][0].getNum() &&
+                matrix[2][0].getNum() != matrix[3][0].getNum() &&
+                matrix[3][0].getNum() != matrix[3][1].getNum() &&
+                matrix[3][1].getNum() != matrix[3][2].getNum() &&
+                matrix[3][2].getNum() != matrix[3][3].getNum() &&
+                matrix[3][3].getNum() != matrix[2][3].getNum() &&
+                matrix[2][3].getNum() != matrix[1][3].getNum() &&
+                matrix[1][3].getNum() != matrix[0][3].getNum() &&
+                matrix[0][3].getNum() != matrix[0][2].getNum() &&
+                matrix[0][2].getNum() != matrix[0][1].getNum() &&
+                matrix[0][1].getNum() != matrix[0][0].getNum();
     }
 
     public int getScore() {
