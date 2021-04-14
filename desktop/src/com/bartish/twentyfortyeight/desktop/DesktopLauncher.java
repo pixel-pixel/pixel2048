@@ -11,7 +11,7 @@ public class DesktopLauncher {
 
 		config.width = Constants.WINDOW_WIDTH;
 		config.height = Constants.WINDOW_HEIGHT;
-		config.title = Constants.WINDOW_TITLE;
+		config.title = Constants.GAME_TITLE;
 
 		new LwjglApplication(new Main(), config);
 	}

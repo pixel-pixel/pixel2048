@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
-import com.bartish.twentyfortyeight.Main;
 import com.bartish.twentyfortyeight.actors.GameBoard;
 import com.bartish.twentyfortyeight.actors.GameOver;
 import com.bartish.twentyfortyeight.actors.RestartButton;
@@ -31,7 +30,7 @@ public class GameShield extends Shield{
         super();
         Gdx.input.setInputProcessor(this);
         //saver = new JsonSaver();
-        saver = Gdx.app.getPreferences(Main.NAME);
+        saver = Gdx.app.getPreferences(GAME_TITLE);
         json = new Json();
 
         gameBoard = new GameBoard();
@@ -125,6 +124,10 @@ public class GameShield extends Shield{
 
         resize();
         //restart();
+    }
+
+    public void start() {
+
     }
 
     @Override

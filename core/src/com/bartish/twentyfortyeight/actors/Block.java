@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.bartish.twentyfortyeight.utils.Constants;
 import com.bartish.twentyfortyeight.utils.Tones;
 
 public class Block extends Group {
@@ -30,7 +31,7 @@ public class Block extends Group {
 //        text = new Label("kek", style);
 //        addActor(text);
 
-        setSize(image.getWidth(), image.getHeight());
+        setSize(Constants.BLOCK_SIZE, Constants.BLOCK_SIZE);
         setOrigin(getWidth() / 2, getHeight() / 2);
     }
 

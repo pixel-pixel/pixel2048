@@ -9,7 +9,6 @@ import com.bartish.twentyfortyeight.shields.GameShield;
 import com.bartish.twentyfortyeight.shields.Shield;
 
 public class Main extends ApplicationAdapter {
-	public static final String NAME = "2047";
 	private Shield shield;
 	
 	@Override
