@@ -23,6 +23,7 @@ public class Block extends Group {
 
         image = new Image(new Texture(Gdx.files.internal("block.png")));
         image.setPosition(0, 0);
+        image.setColor(Tones.get(num));
         addActor(image);
 
 //        Label.LabelStyle style = new Label.LabelStyle();
@@ -38,8 +39,6 @@ public class Block extends Group {
     @Override
     public void act(float delta) {
         super.act(delta);
-
-        image.setColor(Tones.get(num));
         //text.setText(Math.pow(2, (num + 1)) + "");
     }
 
@@ -52,7 +51,8 @@ public class Block extends Group {
     }
 
     public void doubleTheNumber() {
-         num++;
+        num++;
+        image.setColor(Tones.get(num));
     }
 
 }
