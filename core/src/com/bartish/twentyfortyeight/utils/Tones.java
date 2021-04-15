@@ -6,7 +6,7 @@ import com.bartish.twentyfortyeight.actors.Block;
 /**
  * A Class-utility for working with colors of {@link Block}
  *
- * @author Andrew Bartish (pixel-pixel)
+ * @author pixel-pixel
  * @version 1.0
  * @see Block#Block(int)
  * @see Block#addOneToNum()
@@ -31,7 +31,7 @@ public class Tones {
     };
 
     /**
-     * Return Color by index
+     * Return Color by index.
      *
      * @param num Position in {@link Tones#tones}
      * @return Color by it position in {@link Tones#tones}

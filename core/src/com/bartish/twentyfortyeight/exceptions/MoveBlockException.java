@@ -6,7 +6,7 @@ import com.bartish.twentyfortyeight.actors.GameBoard;
 /**
  * An error is thrown if a {@link Block} cannot be moved to a certain position on a {@link GameBoard}
  *
- * @author Andrew Bartish (pixel-pixel)
+ * @author pixel-pixel
  * @version 1.0
  * @see GameBoard#canMove(int, int, int, int)
  */

@@ -11,7 +11,7 @@ import static com.bartish.twentyfortyeight.utils.Constants.*;
 /**
  * A class for animated end of the game
  *
- * @author Andrew Bartish (pixel-pixel)
+ * @author pixel-pixel
  * @version 1.0
  * @see GameShield#act()
  */

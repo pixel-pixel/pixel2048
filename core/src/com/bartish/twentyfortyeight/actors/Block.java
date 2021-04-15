@@ -13,7 +13,7 @@ import com.bartish.twentyfortyeight.utils.Tones;
 /**
  * A class of game blocks with numbers. Must works with {@link GameBoard}
  *
- * @author Andrew Bartish (pixel-pixel)
+ * @author pixel-pixel
  * @version 1.0
  * @see GameBoard
  */

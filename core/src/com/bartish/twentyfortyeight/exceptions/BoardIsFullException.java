@@ -6,7 +6,7 @@ import com.bartish.twentyfortyeight.actors.GameBoard;
 /**
  * An error is thrown if a {@link Block} cannot be placed cause {@link GameBoard} is full
  *
- * @author Andrew Bartish (pixel-pixel)
+ * @author pixel-pixel
  * @version 1.0
  * @see GameBoard#addRandomBlock()
  */

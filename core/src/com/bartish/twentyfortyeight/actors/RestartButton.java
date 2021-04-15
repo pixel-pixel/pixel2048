@@ -9,7 +9,7 @@ import com.bartish.twentyfortyeight.shields.GameShield;
 /**
  * A class for display restart button and check if it click
  *
- * @author Andrew Bartish (pixel-pixel)
+ * @author pixel-pixel
  * @version 1.0
  * @see GameShield#start()
  */

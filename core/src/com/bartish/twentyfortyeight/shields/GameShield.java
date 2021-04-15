@@ -180,7 +180,8 @@ public class GameShield extends Shield{
     }
 
     @Override
-    protected void remove() {
+    public void dispose() {
+        super.dispose();
         gameBoard.remove();
     }
 }
