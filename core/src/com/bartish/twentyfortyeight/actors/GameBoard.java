@@ -8,19 +8,41 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bartish.twentyfortyeight.exceptions.AddBlockException;
 import com.bartish.twentyfortyeight.exceptions.BoardIsFullException;
 import com.bartish.twentyfortyeight.exceptions.MoveBlockException;
+import com.bartish.twentyfortyeight.utils.Tones;
 
 import java.util.Random;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.bartish.twentyfortyeight.utils.Constants.*;
 
+/**
+ * Contain <code>Block</code>s. Can move, add or random add this or new <code>Block</code>s.
+ *
+ * @author pixel-pixel
+ * @version 1.0
+ */
 public class GameBoard extends Group {
+    /**
+     * Width and height <b>in <code>Block</code>s</b> of {@link #matrix}.
+     */
     private final int SIZE = 4;
+    /**
+     * Game score on this <code>GameBoard</code>.
+     */
     private int score;
 
+    /**
+     * Background image for <code>GameBoard</code>.
+     */
     private Image board;
+    /**
+     * Array that contains all <code>Block</code>s on this <code>GameBoard</code>
+     */
     private Block[][] matrix;
 
+    /**
+     * Create <code>GameBoard</code>`s objects and config ny {@link #restart()}.
+     */
     public GameBoard() {
         board = new Image(new Texture(Gdx.files.internal("game_board.png")));
         addActor(board);
@@ -37,6 +59,9 @@ public class GameBoard extends Group {
         restart();
     }
 
+    /**
+     * Config <code>GameBoard</code>`s objects on start and restart.
+     */
     public void restart() {
         score = 0;
 
@@ -54,6 +79,11 @@ public class GameBoard extends Group {
         }
     }
 
+    /**
+     * Put {@link #board} and all <code>Block</code>s in right position by {@link #matrix}.
+     *
+     * @param delta Not use.
+     */
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -72,6 +102,10 @@ public class GameBoard extends Group {
         }
     }
 
+    /**
+     * Need for right work with moving <code>Block</code>s.
+     * Do not use!
+     */
     private void unconnected() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -81,6 +115,12 @@ public class GameBoard extends Group {
         }
     }
 
+    /**
+     * Check if animation of all <code>Block</code>s in {@link #matrix} is finished.
+     * Check it {@link #up()}, {@link #down()}, {@link #left()}, {@link #right()} before methods!
+     *
+     * @return Is animation ended.
+     */
     public boolean isAnimationEnded() {
         for (Block[] arr : matrix) {
             for (Block cell : arr) {
@@ -92,8 +132,19 @@ public class GameBoard extends Group {
         return true;
     }
 
+    /**
+     * Need for {@link #up()}, {@link #down()}, {@link #left()}, {@link #right()}.
+     * Do not use.
+     */
     private boolean move;
 
+    /**
+     * Move or marge all <code>Block</code>s to up.
+     * If can it - add new random <code>Block</code>.
+     *
+     * @see #move(int, int, int, int)
+     * @see #addRandomBlock()
+     */
     public void up() {
         move = false;
 
@@ -127,6 +178,13 @@ public class GameBoard extends Group {
         if (move) addRandomBlock();
     }
 
+    /**
+     * Move or marge all <code>Block</code>s to down.
+     * If can it - add new random <code>Block</code>.
+     *
+     * @see #move(int, int, int, int)
+     * @see #addRandomBlock()
+     */
     public void down() {
         move = false;
 
@@ -160,6 +218,13 @@ public class GameBoard extends Group {
         if (move) addRandomBlock();
     }
 
+    /**
+     * Move or marge all <code>Block</code>s to left.
+     * If can it - add new random <code>Block</code>.
+     *
+     * @see #move(int, int, int, int)
+     * @see #addRandomBlock()
+     */
     public void left() {
         move = false;
 
@@ -193,6 +258,13 @@ public class GameBoard extends Group {
         if (move) addRandomBlock();
     }
 
+    /**
+     * Move or marge all <code>Block</code>s to right.
+     * If can it - add new random <code>Block</code>.
+     *
+     * @see #move(int, int, int, int)
+     * @see #addRandomBlock()
+     */
     public void right() {
         move = false;
 
@@ -226,6 +298,13 @@ public class GameBoard extends Group {
         if (move) addRandomBlock();
     }
 
+    /**
+     * Randomly selects a free position in {@link #matrix} and adds where a block with Num 0 or 1.
+     * <b>Num is position in <code>Tones</code> array. Real number will be 2 or 4</b>
+     *
+     * @see #addBlock(int, int, int)
+     * @see Tones#get(int)
+     */
     public void addRandomBlock() {
         int emptyBlocks = 0;
         int num;
@@ -259,6 +338,14 @@ public class GameBoard extends Group {
         }
     }
 
+    /**
+     * Add new <code>Block</code> to {@link #matrix} if position == null else throw <code>AddBlockException</code>
+     *
+     * @param x   X position of new <code>Block</code> in {@link #matrix}
+     * @param y   Y position of new <code>Block</code> in {@link #matrix}
+     * @param num Num of new <code>Block</code> in {@link #matrix}
+     * @see AddBlockException
+     */
     public void addBlock(int x, int y, int num) {
         if (matrix[x][y] != null)
             throw new AddBlockException("There are Block already");
@@ -279,7 +366,17 @@ public class GameBoard extends Group {
         score += Math.pow(2, ++num);
     }
 
-    public boolean canMove(int oldX, int oldY, int newX, int newY) throws MoveBlockException {
+    /**
+     * Check if can move <code>Block</code> from old position to new in {@link #matrix}
+     * or throw <code>MoveBlockException</code>.
+     *
+     * @param oldX X position of <code>Block</code>
+     * @param oldY Y position of <code>Block</code>
+     * @param newX New X position of <code>Block</code>
+     * @param newY New Y position of <code>Block</code>
+     * @throws MoveBlockException If block cant be moved to new position.
+     */
+    public void canMove(int oldX, int oldY, int newX, int newY) throws MoveBlockException {
         if (oldX == newX && oldY == newY)
             throw new MoveBlockException("Cant move to old position");
 
@@ -291,10 +388,16 @@ public class GameBoard extends Group {
             if (matrix[newX][newY].connected)
                 throw new MoveBlockException("Cant connect with connected block");
         }
-
-        return true;
     }
 
+    /**
+     * Move and animate <code>Block</code> from old position to new in {@link #matrix}.
+     *
+     * @param oldX X position of <code>Block</code>
+     * @param oldY Y position of <code>Block</code>
+     * @param newX New X position of <code>Block</code>
+     * @param newY New Y position of <code>Block</code>
+     */
     public void move(int oldX, int oldY, int newX, int newY) {
         canMove(oldX, oldY, newX, newY);
 
@@ -318,6 +421,14 @@ public class GameBoard extends Group {
         ));
     }
 
+
+    /**
+     * Create new <code>int[][]</code> which contains Num of <code>Block</code> in {@link #matrix} by position.
+     * Need to save the game.
+     *
+     * @return Int matrix which contains <code>Block</code>`s Num or -1.
+     * @see Block#getNum()
+     */
     public int[][] getMatrix() {
         int[][] arr = new int[SIZE][SIZE];
 
@@ -331,6 +442,13 @@ public class GameBoard extends Group {
         return arr;
     }
 
+    /**
+     * Clean the {@link #matrix} and add <code>Block</code>s by its number in {@param arr}.
+     * Need for load the game.
+     *
+     * @param arr Int matrix which contains <code>Block</code>`s Num or -1.
+     * @see Block#getNum()
+     */
     public void setMatrix(int[][] arr) {
         restart();
 
@@ -342,6 +460,11 @@ public class GameBoard extends Group {
         }
     }
 
+    /**
+     * Check if you can move or add some <code>Block</code> to this <code>GameBoard</code>
+     *
+     * @return Is <code>GameBoard</code> full and <code>Block</code>s cant move.
+     */
     public boolean isGameOver() {
         for (Block[] arr : matrix) {
             for (Block cell : arr) {
@@ -373,6 +496,11 @@ public class GameBoard extends Group {
                 matrix[0][1].getNum() != matrix[0][0].getNum();
     }
 
+    /**
+     * Getter for {@link #score}
+     *
+     * @return Score of the game in this <code>GameBoard</code>
+     */
     public int getScore() {
         return score;
     }

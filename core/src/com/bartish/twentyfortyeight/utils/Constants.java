@@ -19,7 +19,6 @@ public final class Constants {
      * @see GameShield#GameShield()
      */
     public static final String GAME_TITLE = "2048";
-
     /**
      * Original width of game.
      *
@@ -33,7 +32,6 @@ public final class Constants {
      */
     public static final int GAME_HEIGHT = 380;
 
-
     /**
      * Standard window width on desktop.
      */
@@ -42,7 +40,6 @@ public final class Constants {
      * Standard window height on desktop.
      */
     public static final int WINDOW_HEIGHT = 720;
-
 
     /**
      * Name to check the save of game.
@@ -66,7 +63,6 @@ public final class Constants {
      */
     public static final String SCORE_SAVE_NAME = "score";
 
-
     /**
      * Width and height of {@link Block}.
      *
@@ -74,14 +70,12 @@ public final class Constants {
      * @see GameBoard#act(float)
      */
     public static final int BLOCK_SIZE = 45;
-
     /**
      * Space between {@link Block} on {@link GameBoard}.
      *
      * @see GameBoard#act(float)
      */
     public static final int BLOCK_SPACING = 4;
-
 
     /**
      * The time it takes for the {@link Block} to move on the {@link GameBoard}.
@@ -90,7 +84,6 @@ public final class Constants {
      * @see GameBoard#move(int, int, int, int)
      */
     public static final float BLOCK_MOVE_TIME = 0.1f;
-
     /**
      * The time it takes to active and disactive for {@link GameOver}.
      *
@@ -98,7 +91,6 @@ public final class Constants {
      * @see GameShield#act()
      */
     public static final float GAME_OVER_TIME = 0.2f;
-
     /**
      * The time it takes to fall when start the game for {@link GameBoard}.
      *
