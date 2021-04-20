@@ -1,12 +1,11 @@
 package com.bartish.twentyfortyeight.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.bartish.twentyfortyeight.utils.Constants;
 import com.bartish.twentyfortyeight.utils.Tones;
 
@@ -25,7 +24,9 @@ public class Block extends Group {
     public boolean connected = false;
 
     /**An image of Block`s background*/
-    private Image image;
+    private Image back;
+
+    private Image number;
 
     /**
      * A constructor which configure the Block
@@ -35,10 +36,14 @@ public class Block extends Group {
         super();
         this.num = num;
 
-        image = new Image(new Texture(Gdx.files.internal("block.png")));
-        image.setPosition(0, 0);
-        image.setColor(Tones.get(num));
-        addActor(image);
+        back = new Image(new Texture(Gdx.files.internal("block.png")));
+        back.setPosition(0, 0);
+        back.setColor(Tones.get(num));
+        addActor(back);
+
+        number = new Image(new Texture(Gdx.files.internal("numbers/" + num + ".png")));
+        number.setPosition((Constants.BLOCK_SIZE - number.getWidth()) / 2, (Constants.BLOCK_SIZE - number.getHeight()) / 2);
+        addActor(number);
 
         setSize(Constants.BLOCK_SIZE, Constants.BLOCK_SIZE);
         setOrigin(getWidth() / 2, getHeight() / 2);
@@ -57,7 +62,9 @@ public class Block extends Group {
      */
     public void addOneToNum() {
         num++;
-        image.setColor(Tones.get(num));
+        back.setColor(Tones.get(num));
+
+        number.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("numbers/" + num + ".png")))));
     }
 
 }

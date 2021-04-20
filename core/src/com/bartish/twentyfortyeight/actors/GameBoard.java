@@ -443,7 +443,7 @@ public class GameBoard extends Group {
     }
 
     /**
-     * Clean the {@link #matrix} and add <code>Block</code>s by its number in {@param arr}.
+     * Clean the {@link #matrix} and add <code>Block</code>s by its number in array.
      * Need for load the game.
      *
      * @param arr Int matrix which contains <code>Block</code>`s Num or -1.

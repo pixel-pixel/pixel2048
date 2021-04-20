@@ -60,6 +60,28 @@ public class GameShield extends Shield {
         json = new Json();
 
         gameBoard = new GameBoard();
+        addActor(gameBoard);
+
+        gameOver = new GameOver();
+        addActor(gameOver);
+
+        restart = new RestartButton();
+        addActor(restart);
+
+
+        start();
+        resize();
+    }
+
+    /**
+     * Config class` objects.
+     */
+    public void start() {
+        if (!load()) {
+            gameBoard.addRandomBlock();
+            gameBoard.addRandomBlock();
+        }
+
         gameBoard.toFront();
         gameBoard.addAction(Actions.sequence(
                 Actions.scaleTo(2, 2),
@@ -69,29 +91,13 @@ public class GameShield extends Shield {
                         Actions.alpha(1, BOARD_START_TIME)
                 )
         ));
-        addActor(gameBoard);
 
-        gameOver = new GameOver();
-        addActor(gameOver);
-
-        restart = new RestartButton();
         restart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameBoard.restart();
-                gameBoard.setTouchable(Touchable.enabled);
-                gameBoard.addRandomBlock();
-                gameBoard.addRandomBlock();
-
-                gameOver.disactive();
+                restart();
             }
         });
-        addActor(restart);
-
-        if (!load()) {
-            gameBoard.addRandomBlock();
-            gameBoard.addRandomBlock();
-        }
 
         addListener(new InputListener() {
             @Override
@@ -147,23 +153,18 @@ public class GameShield extends Shield {
                 touch = false;
             }
         });
-
-        resize();
-        //restart();
-    }
-
-    /**
-     * Config class` objects.
-     */
-    public void start() {
-
     }
 
     /**
      * Reconfig class` objects.
      */
     public void restart() {
+        gameBoard.restart();
+        gameBoard.setTouchable(Touchable.enabled);
+        gameBoard.addRandomBlock();
+        gameBoard.addRandomBlock();
 
+        gameOver.disactive();
     }
 
     /**

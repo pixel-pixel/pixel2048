@@ -22,7 +22,7 @@ public class RestartButton extends Group {
     public RestartButton() {
         super();
 
-        button = new Image(new Texture(Gdx.files.internal("block.png")));
+        button = new Image(new Texture(Gdx.files.internal("restart.png")));
         addActor(button);
 
         setSize(button.getWidth(), button.getHeight());
